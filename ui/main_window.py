@@ -25,22 +25,22 @@ class MainWindow(QMainWindow):
 
         self.init_ui()
         self.refresh_com_ports()
-
+        
     def init_ui(self):
         central = QWidget()
         self.setCentralWidget(central)
 
         main_layout = QVBoxLayout(central)
 
-        # Top: battery grid / stats / plots
-        top_layout = QHBoxLayout()
+        # Top row: battery/stats
+        top_row_layout = QHBoxLayout()
 
         # ── Battery Grid ──────────────────────────────────────
         battery_group = QGroupBox("Battery Cells")
         battery_layout = QGridLayout(battery_group)
 
         self.battery_cells = []
-        rows, cols = 4, 5  # 40 cells
+        rows, cols = 4, 5  # 20 cells
         for r in range(rows):
             for c in range(cols):
                 idx = r * cols + c
@@ -48,15 +48,16 @@ class MainWindow(QMainWindow):
                 battery_layout.addWidget(cell, r, c)
                 self.battery_cells.append(cell)
 
-        top_layout.addWidget(battery_group, stretch=3)
+        top_row_layout.addWidget(battery_group, stretch=3)
 
         # ── Stats Panel ──────────────────────────────────────
         self.stats_panel = StatsPanel()
-        top_layout.addWidget(self.stats_panel, stretch=1)
+        top_row_layout.addWidget(self.stats_panel, stretch=2)
+        main_layout.addLayout(top_row_layout)
 
-        # ── Plots Panel ──────────────────────────────────────
+        # ── Plots Panel ────────────────────────
         plot_group = QGroupBox("Telemetry Plots")
-        plot_layout = QVBoxLayout(plot_group)
+        plot_layout = QHBoxLayout(plot_group)
 
         self.plots = []
         titles = [
@@ -70,9 +71,7 @@ class MainWindow(QMainWindow):
             plot_layout.addWidget(p)
             self.plots.append(p)
 
-        top_layout.addWidget(plot_group, stretch=3)
-
-        main_layout.addLayout(top_layout)
+        main_layout.addWidget(plot_group)
 
         # Bottom: control panel
         control_layout = QHBoxLayout()
@@ -94,7 +93,6 @@ class MainWindow(QMainWindow):
         control_layout.addWidget(self.stop_btn)
 
         self.stop_log_btn = QPushButton("Stop Logging")
-        # connect to your logging‑stop logic if needed
         control_layout.addWidget(self.stop_log_btn)
 
         self.exit_btn = QPushButton("Exit")
