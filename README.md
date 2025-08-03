@@ -103,7 +103,7 @@ python main.py
 ## Future Improvements
 
 - [ ] Serial settings UI panel  
-- [ ] Dark mode toggle  
+- [ ] Theme toggle  
 - [ ] Data export (CSV/JSON)  
 - [ ] CAN bus integration  
 - [ ] Remote streaming capability  
