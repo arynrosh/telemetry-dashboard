@@ -1,4 +1,4 @@
-# Modern Telemetry GUI
+# Telemetry GUI
 
 A modernized, modular, and user-friendly graphical interface for real-time telemetry data visualization.
 
